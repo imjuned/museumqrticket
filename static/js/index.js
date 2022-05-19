@@ -1,4 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
 
-function myFunction(x) {
-  x.classList.toggle("change");
-}
+<h2>JavaScript in Body</h2>
+
+<p id="demo"></p>
+
+<script>
+document.getElementById("demo").innerHTML = "My First JavaScript";
+</script>
+
+</body>
+</html> 

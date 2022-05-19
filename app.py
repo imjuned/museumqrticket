@@ -14,18 +14,18 @@ app.config['MYSQL_DB'] = 'flask'
 
 mysql = MySQL(app)
 
-cursor = mysql.connection.cursor()
-print(cursor)
+
+#print(cursor)
 #Executing SQL Statements
-cursor.execute(''' CREATE TABLE table_name(field1, field2...) ''')
-cursor.execute(''' INSERT INTO table_name VALUES(v1,v2...) ''')
-cursor.execute(''' DELETE FROM table_name WHERE condition ''')
+#cursor.execute(''' CREATE TABLE table_name(field1, field2...) ''')
+#cursor.execute(''' INSERT INTO table_name VALUES(v1,v2...) ''')
+#cursor.execute(''' DELETE FROM table_name WHERE condition ''')
  
 #Saving the Actions performed on the DB
-mysql.connection.commit()
+#mysql.connection.commit()
  
 #Closing the curso
-cursor.close()
+#cursor.close()
 
 @app.route('/')
 def home():
@@ -49,7 +49,7 @@ def login():
         name = request.form['name']
         age = request.form['age']
         cursor = mysql.connection.cursor()
-        cursor.execute(''' INSERT INTO info_table VALUES(%s,%s)''',(name,age))
+        cursor.execute(''' INSERT INTO login VALUES(%s,%s)''',(name,age))
         mysql.connection.commit()
         cursor.close()
         return f"Done!!"
@@ -58,10 +58,28 @@ def login():
     
 @app.route('/buyticket')
 def tciket():
+    cursor = mysql.connection.cursor()
+    #name = 'mohammed juned'
+   
+    sql = '''SELECT * from Login'''
+
+#Executing the query
+    cursor.execute(sql)
+
+#Fetching 1st row from the table
+    result = cursor.fetchall();
+    print(result) 
+    for i in result:
+        print(i)
+        print(type(i[0]),type(i[1]))
+        print("hardwork sucessful ")
+
+    cursor.close()
+
     return render_template("slot.html")
 
     
-    return render_template('slot.html')
+    #return render_template('slot.html')
 
 if __name__=='__main__':
     app.run(debug=True)
